@@ -37,11 +37,50 @@ class Game
   def turn
     puts "------------------\nRolling dice..."
     roll_dice
+    print_dice_rolls
+
     ## print dice 
 
   end
 
+  def print_tiles
+    print "|" 
+    @tiles.each do |tile|
+      print " #{tile.print_tile_display_value} | "
+    end
+    puts ""    
+  end
+
+  def get_choice
+    puts "Enter the tabs you wish to flip separated by a space ('q' to quit):\n"
+
+    choices = Array.new
+
+    loop do
+      
+    end
+      
+    
+
+    "Score: #{}" 
+
+      "Sorry, that's not a valid move"
+
+      "Ok, flipping |e|e|" '[in accending order]'
+
+  end
+
+
+
+  def open_tiles_sum
+    @tiles.select{|tile| tile.statusOpen == true}.collection.reduce(:+)
+  end
+
+  
+
   def print_dice_rolls
+    puts "Current Roll: #{@dice[0].rollValue}, #{@dice[1].rollValue}"
+  end
 
   end
 

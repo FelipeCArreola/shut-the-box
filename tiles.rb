@@ -34,4 +34,9 @@ class Tiles
     !@statusOpen
   end
 
+  # returns tile value ID
+  def print_tile_display_value
+    @statusOpen ? (@numberID + 1) : '.'
+  end
+
 end

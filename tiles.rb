@@ -13,6 +13,7 @@ class Tiles
   protected
   attr_reader :numberID, :statusOpen
 
+  public
   # Opens tile
   def open
     @statusOpen = true

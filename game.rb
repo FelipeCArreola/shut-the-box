@@ -57,16 +57,16 @@ class Game
     choices = Array.new
 
     loop do
-      
+      # TODO- grab choice
     end
       
-    
+ 
 
-    "Score: #{}" 
+    # "Score: #{}" 
 
-    "Sorry, that's not a valid move"
+    # "Sorry, that's not a valid move"
 
-    "Ok, flipping |e|e|" '[in accending order]'
+    # "Ok, flipping |e|e|" '[in accending order]'
 
   end
 
@@ -81,10 +81,20 @@ class Game
   end
 
   def open_tiles_sum
-    open_tiles.
-    collection.reduce(:+)
+    sum = 0
+    open_tiles.each do |tile|
+      sum += (tile.numberID + 1)
+    end
+    sum
   end
 
+  # Checks for possible choices 
+  def check_combinations
+    choices = []
+    size = open_tiles.length
+    # TODO-make an array comparing possible choices of sum of dice rolled~ 
+    #     ref: combinations -? 
+  end
   
 
   def print_dice_rolls

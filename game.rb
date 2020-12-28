@@ -64,16 +64,25 @@ class Game
 
     "Score: #{}" 
 
-      "Sorry, that's not a valid move"
+    "Sorry, that's not a valid move"
 
-      "Ok, flipping |e|e|" '[in accending order]'
+    "Ok, flipping |e|e|" '[in accending order]'
 
   end
 
 
 
+  def open_tiles
+    temp_arry = []
+    # temp_arry = @tiles.map{|tile| tile if tile.open?}.collect
+    # temp_arry = @tiles.select{|tile| tile.statusOpen == true}.collect
+    temp_arry = @tiles.select{|tile| tile if tile.open?}.collect
+    temp_arry
+  end
+
   def open_tiles_sum
-    @tiles.select{|tile| tile.statusOpen == true}.collection.reduce(:+)
+    open_tiles.
+    collection.reduce(:+)
   end
 
   

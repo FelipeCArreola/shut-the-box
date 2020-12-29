@@ -4,7 +4,7 @@ class Game
   require_relative "tiles.rb"
 
   # Instance variables
-  
+
   # Array of dice
   @dice
   # Array of tile objects           
@@ -62,24 +62,39 @@ class Game
   end
 
   def get_choice
-    puts "Enter the tabs you wish to flip separated by a space ('q' to quit):\n"
-
-    choices = Array.new
+    choices = []
 
     # ref: https://stackoverflow.com/questions/20387173/how-do-i-loop-a-request-for-user-input-until-the-user-enters-the-correct-info
     prompt = '> '
+    puts "Enter the tabs you wish to flip separated by a space ('q' to quit):\n"
+    print prompt
     while user_input = gets.chomp
-      case user_input
-      print prompt  
+      case user_input  
+      
+      # Escape  
       when 'q'
         @gameRunning = false
         break
+
+      # User_input within tile range  
       when 1..9
         tile_choice = @tiles.find{|tile| tile.numberID==user_input and tile.open?}
         
-        # TODO- work on while loop--
-        tile_choice.nil? ? redo : 
+        # Verify that chosen tile is open, if not then redo
+        if tile_choice.nil?
+          puts "Selection: #{user_input} is closed\n"
+          redo  
+        end
+       
+        # if tile already selected, move to next selection
+        if choices.include?(tile_choice)
+          puts "Selection: #{user_input} already selected for this round, select another tile\n"
+          next
+        end
 
+        # Entered selection is okay 
+
+      # User_input not valid  
       else
         puts "Sorry, that's not a valid move"
         print prompt
@@ -87,8 +102,6 @@ class Game
       
     end
     
-      
- 
 
     # "Score: #{}" 
 

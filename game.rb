@@ -63,6 +63,7 @@ class Game
 
   def get_choice
     choices = []
+    choices_sum = nil
 
     # ref: https://stackoverflow.com/questions/20387173/how-do-i-loop-a-request-for-user-input-until-the-user-enters-the-correct-info
     prompt = '> '
@@ -93,6 +94,11 @@ class Game
         end
 
         # Entered selection is okay 
+        choices.append(tile_choice)
+        choices_sum += tile_choice 
+
+        # Detect if another move is okay
+        # TODO--add detection
 
       # User_input not valid  
       else

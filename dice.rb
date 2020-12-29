@@ -1,8 +1,11 @@
 class Dice
 
   # Instance variables
-  @numberID     # integer value ID
-  @rollValue    # roll value (1-6)
+  
+  # integer value ID
+  @numberID     
+  # roll value
+  @rollValue    
   
   # Instance methods
   def initialize(number)

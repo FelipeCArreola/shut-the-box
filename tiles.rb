@@ -1,8 +1,11 @@
 class Tiles
 
   # Instance variables
-  @numberID     # integer value ID
-  @statusOpen   # Boolean: True: Open; False: Closed
+  
+  # integer value ID
+  @numberID     
+  # Boolean: True: Open; False: Closed
+  @statusOpen   
   
   # Instance methods
   def initialize(number)
@@ -34,9 +37,9 @@ class Tiles
     !@statusOpen
   end
 
-  # returns tile value ID
+  # returns tile value ID : if open returns the number ID, if closed returns '.'
   def print_tile_display_value
-    @statusOpen ? (@numberID + 1) : '.'
+    @statusOpen ? @numberID : '.'
   end
 
 end

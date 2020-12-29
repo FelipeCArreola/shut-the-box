@@ -4,22 +4,24 @@ class Game
   require_relative "tiles.rb"
 
   # Instance variables
-  @dice           # Array of dice
-  @tiles          # Array of tile objects
-  @gameRunning    # Boolean: True: game-Running; False: game-Over 
+  
+  # Array of dice
+  @dice
+  # Array of tile objects           
+  @tiles
+  # Boolean: True: game-Running; False: game-Over          
+  @gameRunning     
 
   # Instance methods
   def initialize(:number_of_dice 2, :number_of_tiles 9)
-    @dice = Array.new(:number_of_dice) {|num_of_dice| Dice.new(num_of_dice) }    
-    @tiles = Array.new(:number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles) }
+    @dice = Array.new(:number_of_dice) {|num_of_dice| Dice.new(num_of_dice +1) }    
+    @tiles = Array.new(:number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles +1) }
     @gameRunning = true
     puts "Let's play SHUT THE BOX!\n"
 
     # --- compact to a function: turn>?
     # print- table status
-
-    roll_dice
-
+    # roll_dice
     ## print dice 
   end  
 
@@ -68,6 +70,7 @@ class Game
     prompt = '> '
     while user_input = gets.chomp
       case user_input
+      print prompt  
       when 'q'
         @gameRunning = false
         break
@@ -75,11 +78,11 @@ class Game
         tile_choice = @tiles.find{|tile| tile.numberID==user_input and tile.open?}
         
         # TODO- work on while loop--
-        tile_choice.nil? ? next :
+        tile_choice.nil? ? redo : 
 
       else
         puts "Sorry, that's not a valid move"
-        print prompt # print the prompt, so the user knows to re-enter input
+        print prompt
       end
       
     end

@@ -10,8 +10,8 @@ class Game
 
   # Instance methods
   def initialize(:number_of_dice 2, :number_of_tiles 9)
-    @dice = Array.new(:number_of_dice) {|num_of_dice| Dice.new(num_of_dice+1) }    
-    @tiles = Array.new(:number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles+1) }
+    @dice = Array.new(:number_of_dice) {|num_of_dice| Dice.new(num_of_dice) }    
+    @tiles = Array.new(:number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles) }
     @gameRunning = true
     puts "Let's play SHUT THE BOX!\n"
 
@@ -56,7 +56,7 @@ class Game
     @tiles.each do |tile|
       print " #{tile.print_tile_display_value} | "
     end
-    puts ""    
+    print "\n"    
   end
 
   def get_choice
@@ -64,9 +64,26 @@ class Game
 
     choices = Array.new
 
-    loop do
-      # TODO- grab choice
+    # ref: https://stackoverflow.com/questions/20387173/how-do-i-loop-a-request-for-user-input-until-the-user-enters-the-correct-info
+    prompt = '> '
+    while user_input = gets.chomp
+      case user_input
+      when 'q'
+        @gameRunning = false
+        break
+      when 1..9
+        tile_choice = @tiles.find{|tile| tile.numberID==user_input and tile.open?}
+        
+        # TODO- work on while loop--
+        tile_choice.nil? ? next :
+
+      else
+        puts "Sorry, that's not a valid move"
+        print prompt # print the prompt, so the user knows to re-enter input
+      end
+      
     end
+    
       
  
 

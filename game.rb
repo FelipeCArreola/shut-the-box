@@ -36,7 +36,7 @@ class Game
   end
 
   def turn
-    puts "------------------\nRolling dice..."
+    puts "Rolling dice..."
     
     # Roll & Print dice roll
     roll_dice
@@ -92,7 +92,7 @@ class Game
   def open_tiles_sum
     sum = 0
     open_tiles.each do |tile|
-      sum += (tile.numberID + 1)
+      sum += tile.numberID
     end
     sum
   end
@@ -118,6 +118,10 @@ class Game
     sums.uniq!.sort!
   end
   
+  def dice_sum
+    # Return dice sum value
+    @dice.inject(0){ |sum, die| sum + die.rollValue}
+  end  
 
   def print_dice_rolls
     puts "Current Roll: #{@dice[0].rollValue}, #{@dice[1].rollValue}"

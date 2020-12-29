@@ -24,6 +24,7 @@ class Game
   end  
 
   public
+
   # Roll each die in array "Dice"
   def roll_dice
     @dice.each do |die| 
@@ -36,10 +37,17 @@ class Game
 
   def turn
     puts "------------------\nRolling dice..."
+    
+    # Roll & Print dice roll
     roll_dice
     print_dice_rolls
 
-    ## print dice 
+    # Game Over: yes or no?
+    check_game_over
+
+    # Get player choice
+    choices = []
+
 
   end
 
@@ -73,6 +81,7 @@ class Game
 
 
   def open_tiles
+    # Return an array of `Open` tiles
     temp_arry = []
     # temp_arry = @tiles.map{|tile| tile if tile.open?}.collect
     # temp_arry = @tiles.select{|tile| tile.statusOpen == true}.collect
@@ -88,12 +97,25 @@ class Game
     sum
   end
 
-  # Checks for possible choices 
+  def check_game_over
+    # Logic: check if dice sum exists in the possible combinations of tiles
+    @gameRunning = check_combinations.include?(dice_sum)
+  end
+
+  # Checks possible tile choices 
   def check_combinations
-    choices = []
+    # returns possible sums of combinations from open-tiles 
+    sums = []
     size = open_tiles.length
-    # TODO-make an array comparing possible choices of sum of dice rolled~ 
-    #     ref: combinations -? 
+    while size > 0
+      # ref: https://www.geeksforgeeks.org/ruby-array-combination-operation/
+      combinations = open_tiles.combination(size).to_a
+      combinations.each { |combos| sums.append(
+        combos.inject(0){ |sum, tile| sum + tile.numberID}
+      )}
+      size -= 1
+    end
+    sums.uniq!.sort!
   end
   
 

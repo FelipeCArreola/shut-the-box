@@ -13,10 +13,9 @@ class Dice
     @rollValue = 0 
   end
 
-  protected
+  public
   attr_reader :numberID, :rollValue
 
-  public
   # reset the roll value
   def reset
     @rollValue = 0

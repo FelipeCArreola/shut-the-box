@@ -13,16 +13,11 @@ class Game
   @gameRunning     
 
   # Instance methods
-  def initialize(:number_of_dice 2, :number_of_tiles 9)
-    @dice = Array.new(:number_of_dice) {|num_of_dice| Dice.new(num_of_dice +1) }    
-    @tiles = Array.new(:number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles +1) }
+  def initialize(number_of_dice = 2, number_of_tiles = 9)
+    @dice = Array.new(number_of_dice) {|num_of_dice| Dice.new(num_of_dice +1) }    
+    @tiles = Array.new(number_of_tiles) {|num_of_tiles| Tiles.new(num_of_tiles +1) }
     @gameRunning = true
     puts "Let's play SHUT THE BOX!\n"
-
-    # --- compact to a function: turn>?
-    # print- table status
-    # roll_dice
-    ## print dice 
   end  
 
   public
@@ -57,9 +52,7 @@ class Game
     selection = get_choice
 
     # Close tile(s)
-    selection.each{ |choice| @tiles.select { |tile| tile.id == choice and tile.open?} 
-       then tile.close 
-    }
+    selection.each{ |choice| @tiles.select{ |tile| tile.id == choice and tile.open?}.first.close }
 
   end
 
@@ -78,6 +71,9 @@ class Game
 
     # ref: https://stackoverflow.com/questions/20387173/how-do-i-loop-a-request-for-user-input-until-the-user-enters-the-correct-info
     prompt = '> '
+    
+    puts "\n **TODO: Correct logic-to assess if user input is a valid move.**\n\n"
+
     puts "Enter the tabs you wish to flip separated by a space ('q' to quit):\n"
     print prompt
     while user_input = gets.chomp
@@ -134,15 +130,9 @@ class Game
 
   end
 
-
-
   def open_tiles
     # Return an array of `Open` tiles
-    temp_arry = []
-    # temp_arry = @tiles.map{|tile| tile if tile.open?}.collect
-    # temp_arry = @tiles.select{|tile| tile.statusOpen == true}.collect
-    temp_arry = @tiles.select{|tile| tile if tile.open?}.collect
-    temp_arry
+       @tiles.map{|tile| tile if tile.open?}.compact  
   end
 
   def open_tiles_sum
@@ -166,9 +156,7 @@ class Game
     while size > 0
       # ref: https://www.geeksforgeeks.org/ruby-array-combination-operation/
       combinations = open_tiles.combination(size).to_a
-      combinations.each { |combos| sums.append(
-        combos.inject(0){ |sum, tile| sum + tile.numberID}
-      )}
+      combinations.each { |combos| sums.append(combos.inject(0){ |sum, tile| sum + tile.numberID})}
       size -= 1
     end
     sums.uniq!.sort!
@@ -180,9 +168,7 @@ class Game
   end  
 
   def print_dice_rolls
-    puts "Current Roll: #{@dice[0].rollValue}, #{@dice[1].rollValue}"
-  end
-
+    puts "Current Roll: #{@dice.first.rollValue}, #{@dice.last.rollValue}"
   end
 
   def running?
@@ -190,9 +176,7 @@ class Game
   end
 
   def print_game_over
-    
+    puts "Game Over \nScore: #{open_tiles_sum}"
   end
 
 end
-
-

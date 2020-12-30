@@ -12,11 +12,10 @@ class Tiles
     @numberID = number
     @statusOpen = true
   end
-  
-  protected
-  attr_reader :numberID, :statusOpen
 
   public
+  attr_reader :numberID, :statusOpen
+
   # Opens tile
   def open
     @statusOpen = true

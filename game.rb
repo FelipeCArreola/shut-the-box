@@ -46,16 +46,27 @@ class Game
 
     # Game Over: yes or no?
     check_game_over
+    
+    # If over:
+    return if ! running?
+
+    # print tile selections
+    print_tile_selection (@tiles)
 
     # Get player choice
-    choices = []
+    selection = get_choice
 
+    # Close tile(s)
+    selection.each{ |choice| @tiles.select { |tile| tile.id == choice and tile.open?} 
+       then tile.close 
+    }
 
   end
 
-  def print_tiles
+  # prints out selected array of tiles 
+  def print_tile_selection ( array_of_tiles)
     print "|" 
-    @tiles.each do |tile|
+    array_of_tiles.each do |tile|
       print " #{tile.print_tile_display_value} | "
     end
     print "\n"    
@@ -93,12 +104,22 @@ class Game
           next
         end
 
-        # Entered selection is okay 
+        # Entered selection is okay: add choice to array-choices 
         choices.append(tile_choice)
         choices_sum += tile_choice 
 
+        # Choice_sum greater than roll sum
+        if choices_sum > dice_sum
+          puts "Selection- Greater than your dice rolls: #{dice_sum}"
+          choices.clear
+          redo
+        end
+
         # Detect if another move is okay
-        # TODO--add detection
+        if choices_sum == dice_sum
+          print "Ok, flipping " + print_tile_selection(choices) 
+          break
+        end
 
       # User_input not valid  
       else
@@ -108,12 +129,8 @@ class Game
       
     end
     
-
-    # "Score: #{}" 
-
-    # "Sorry, that's not a valid move"
-
-    # "Ok, flipping |e|e|" '[in accending order]'
+    # return array of acceptable choices
+    return choices
 
   end
 
@@ -168,8 +185,12 @@ class Game
 
   end
 
-  def gameRunning?
-    @gameRunning
+  def running?
+    @gameRunning == true
+  end
+
+  def print_game_over
+    
   end
 
 end
